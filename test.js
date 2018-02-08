@@ -26,31 +26,37 @@ var big = true;
 var x = 0;
 
 var draw_circ = function(e){
-	clear_canv();
+
+	var x = 250;
+	var y = 250;
+	var rad = 0;
+	var maxRad = 250;
+
 	var draw = function(){
+
+		clear_canv();
 	    ctx.beginPath();
-	    ctx.arc(250,250,x,0,2*Math.PI);
+	    ctx.arc(x,y,rad,0,2*Math.PI);
 	    ctx.fill();
 	    ctx.stroke();
 
 	    if (big){
-	    	x++;
+	    	rad++;
+	    	if (rad>=maxRad){
+    			big = false;
+    		}
 	    }
 	    else{
-	    	x--;
+	    	rad--;
+	    	if (rad==0){
+	    		big = true;
+	    	}
 	    }
 
-	    if (x==0){
-	    	big = true;
-	    }
-    	if (x==250){
-    		big = false;
-    	}
-    	requestID = window.requestAnimationFrame(draw_circ);	    
+
+    	requestID = window.requestAnimationFrame(draw);	    
 	};
 	draw();
-
-    console.log(requestID);
 };
 
 
